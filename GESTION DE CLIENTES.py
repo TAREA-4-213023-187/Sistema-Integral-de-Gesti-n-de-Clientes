@@ -131,7 +131,7 @@ class Reserva:
         except ReservaError as e:
             self.estado = "Fallida"
             log_evento(str(e), "ERROR")
-            raise  # Re-lanzamos para que la UI lo maneje
+            raise 
         except Exception as e:
             log_evento(f"Error inesperado en Reserva {self.id}: {e}", "CRITICAL")
             raise ReservaError("Error interno al procesar reserva.")
