@@ -35,19 +35,41 @@ class Entidad(ABC):
 # ====== CLIENTE ======
 
 class Cliente(Entidad):
+
     def __init__(self, id, nombre, email):
         super().__init__(id)
+
+        # Validación de ID al crear el cliente
+        if id <= 0:
+            raise ClienteError(
+                "El ID del cliente debe ser mayor a cero"
+            )
+        
         self.set_nombre(nombre)
         self.set_email(email)
 
     def set_nombre(self, nombre):
-        if not nombre:
-            raise ClienteError("El nombre del cliente no puede estar vacío")
+
+        if not nombre.strip():
+            raise ClienteError(
+                "El nombre del cliente no puede estar vacío"
+            )
+        
+    # Validación que solo permita letras y espacios
+        if not re.match(r"^[A-Za-zÁÉÍÓÚáéíóúñÑ ]+$", nombre):
+            raise ClienteError(
+                "El nombre solo debe contener letras"
+            )
         self._nombre = nombre
 
     def set_email(self, email):
-        if "@" not in email:
-            raise ClienteError("El email no tiene un formato válido")
+
+        patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+
+        if not re.match(patron, email):
+            raise ClienteError(
+                "El email no tiene un formato válido"
+            )
         self._email = email
 
     def mostrar_info(self):
@@ -59,6 +81,15 @@ class Cliente(Entidad):
 
 class Servicio(ABC):
     def __init__(self, nombre, precio_base):
+
+        # Validar Nombre del servicio
+        if not nombre.strip():
+            raise SistemaError("El nombre del servicio no puede estar vacío")
+        
+        # Validar que el precio base sea positivo
+        if precio_base <= 0:
+            raise SistemaError("El precio base debe ser mayor a cero")
+        
         self.nombre = nombre
         self.precio_base = precio_base
 
@@ -101,6 +132,23 @@ class AsesoriaEspecializada(Servicio):
 
 class Reserva:
     def __init__(self, id_reserva, cliente, servicio, cantidad):
+
+        # Validar ID de reserva
+        if id_reserva <= 0:
+            raise ReservaError("El ID de la reserva debe ser mayor a cero")
+        
+        # Validar Cliente
+        if not isinstance(cliente, Cliente):
+            raise ReservaError("El cliente proporcionado no es válido")
+        
+        # Validar Servicio
+        if not isinstance(servicio, Servicio):
+            raise ReservaError("El servicio proporcionado no es válido")
+        
+        # Validar cantidad
+        if cantidad <= 0:
+            raise ReservaError("La cantidad debe ser mayor a cero")
+        
         self.id = id_reserva
         self.cliente = cliente
         self.servicio = servicio
