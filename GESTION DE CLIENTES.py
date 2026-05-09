@@ -58,10 +58,10 @@ class Servicio(ABC):
         self._nombre = nombre
         self._precio_base = precio_base
 
-        @abstractmethod
-        def calcular_costo(self, *args):
-            pass
+    @abstractmethod
+    def calcular_costo(self, *args):
+        pass
 
-        @abstractmethod
-        def descripcion(self):
-            pass
+    @abstractmethod
+    def descripcion(self):
+        pass
