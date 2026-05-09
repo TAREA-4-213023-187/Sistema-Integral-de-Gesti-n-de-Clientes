@@ -39,7 +39,9 @@ class Cliente(Entidad):
     def __init__(self, id, nombre, email):
         super().__init__(id)
 
-        # Validación de ID al crear el cliente
+# ===== VALIDACIONES CLIENTE =====
+# Validación de ID, Nombre y Correo electrónico
+
         if id <= 0:
             raise ClienteError(
                 "El ID del cliente debe ser mayor a cero"
@@ -64,6 +66,7 @@ class Cliente(Entidad):
 
     def set_email(self, email):
 
+        # EXPRESIÓN REGULAR PARA VALIDAR FORMATO DE CORREO ELECTRÓNICO
         patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 
         if not re.match(patron, email):
@@ -82,7 +85,9 @@ class Cliente(Entidad):
 class Servicio(ABC):
     def __init__(self, nombre, precio_base):
 
-        # Validar Nombre del servicio
+# ===== VALIDACIONES SERVICIO =====
+# Verifica nombre y precio base válidos
+
         if not nombre.strip():
             raise SistemaError("El nombre del servicio no puede estar vacío")
         
@@ -133,7 +138,9 @@ class AsesoriaEspecializada(Servicio):
 class Reserva:
     def __init__(self, id_reserva, cliente, servicio, cantidad):
 
-        # Validar ID de reserva
+# ===== VALIDACIONES RESERVA =====
+# Control de Cliente, Servicio y Cantidad
+
         if id_reserva <= 0:
             raise ReservaError("El ID de la reserva debe ser mayor a cero")
         
