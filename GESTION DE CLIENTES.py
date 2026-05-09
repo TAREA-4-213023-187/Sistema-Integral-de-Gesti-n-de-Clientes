@@ -135,3 +135,350 @@ class Reserva:
         except Exception as e:
             log_evento(f"Error inesperado en Reserva {self.id}: {e}", "CRITICAL")
             raise ReservaError("Error interno al procesar reserva.")
+
+# ==========================================================
+# ====== APORTE ESTUDIANTE: MANEJO CENTRAL DEL SISTEMA =====
+# ==========================================================
+# Autor: HARMINSOND ALONSO ALVAREZ GUERRERO
+#
+# Este módulo se encarga de:
+#  Administrar clientes
+#  Administrar servicios
+#  Gestionar reservas
+#  Controlar excepciones
+#  Registrar eventos y errores
+#  Mantener listas internas del sistema
+#  Mostrar estadísticas
+# ==========================================================
+
+# Función encargada de registrar eventos y errores
+# dentro del archivo logs.txt
+
+def log_evento(mensaje, tipo="INFO"):
+
+    with open("logs.txt", "a", encoding="utf-8") as archivo:
+
+        archivo.write(
+            f"{datetime.now()} [{tipo}] {mensaje}\n"
+        )
+
+
+# Clase principal encargada de administrar
+# el funcionamiento general del sistema
+
+class SistemaGestion:
+
+
+    # Constructor de la clase
+    # Inicializa las listas principales del sistema
+
+    def __init__(self):
+
+        self.clientes = []
+        self.servicios = []
+        self.reservas = []
+
+        log_evento("Sistema de gestión iniciado")
+
+
+    # Método para registrar clientes
+    # Valida que no existan IDs duplicados
+
+    def agregar_cliente(self, cliente):
+
+        try:
+
+            # Verifica que el objeto sea de tipo Cliente
+            if not isinstance(cliente, Cliente):
+
+                raise ClienteError(
+                    "El objeto enviado no corresponde a un cliente válido"
+                )
+
+            # Validación de IDs repetidos
+            for c in self.clientes:
+
+                if c.id == cliente.id:
+
+                    raise ClienteError(
+                        f"Ya existe un cliente con ID {cliente.id}"
+                    )
+
+            # Agrega el cliente a la lista
+            self.clientes.append(cliente)
+
+        except ClienteError as e:
+
+            log_evento(str(e), "ERROR")
+
+            print("ERROR:", e)
+
+        else:
+
+            log_evento(
+                f"Cliente agregado correctamente: {cliente.id}"
+            )
+
+            print("Cliente registrado correctamente")
+
+        finally:
+
+            print("Proceso de registro de cliente finalizado\n")
+
+
+    # Método para agregar servicios al sistema
+
+    def agregar_servicio(self, servicio):
+
+        try:
+
+            # Verifica que el objeto pertenezca
+            # a la clase Servicio
+            if not isinstance(servicio, Servicio):
+
+                raise SistemaError(
+                    "El objeto enviado no es un servicio válido"
+                )
+
+            self.servicios.append(servicio)
+
+        except SistemaError as e:
+
+            log_evento(str(e), "ERROR")
+
+            print("ERROR:", e)
+
+        else:
+
+            log_evento(
+                f"Servicio agregado: {servicio.nombre}"
+            )
+
+            print("Servicio registrado correctamente")
+
+
+    # Método encargado de crear reservas
+    # y validar clientes y servicios registrados
+
+    def crear_reserva(self, reserva):
+
+        try:
+
+            # Verifica que sea una reserva válida
+            if not isinstance(reserva, Reserva):
+
+                raise ReservaError(
+                    "La reserva enviada no es válida"
+                )
+
+            # Comprueba que el cliente exista
+            if reserva.cliente not in self.clientes:
+
+                raise ReservaError(
+                    "El cliente no está registrado en el sistema"
+                )
+
+            # Comprueba que el servicio exista
+            if reserva.servicio not in self.servicios:
+
+                raise ReservaError(
+                    "El servicio no está registrado"
+                )
+
+            # Procesa la reserva
+            costo = reserva.confirmar()
+
+            # Guarda la reserva
+            self.reservas.append(reserva)
+
+        except ReservaError as e:
+
+            log_evento(str(e), "ERROR")
+
+            print("ERROR:", e)
+
+        except Exception as e:
+
+            # Encadenamiento de excepciones
+            log_evento(
+                f"Error inesperado creando reserva: {e}",
+                "CRITICAL"
+            )
+
+            raise ReservaError(
+                "Error interno procesando la reserva"
+            ) from e
+
+        else:
+
+            log_evento(
+                f"Reserva {reserva.id} creada correctamente"
+            )
+
+            print(
+                f"Reserva confirmada exitosamente. "
+                f"Total: ${costo}"
+            )
+
+        finally:
+
+            print("Proceso de reserva finalizado\n")
+
+
+    # Método para cancelar reservas existentes
+
+    def cancelar_reserva(self, id_reserva):
+
+        try:
+
+            reserva_encontrada = False
+
+            # Recorre la lista de reservas
+            for reserva in self.reservas:
+
+                if reserva.id == id_reserva:
+
+                    reserva_encontrada = True
+
+                    # Verifica si ya fue cancelada
+                    if reserva.estado == "Cancelada":
+
+                        raise ReservaError(
+                            "La reserva ya fue cancelada"
+                        )
+
+                    # Cambia el estado
+                    reserva.estado = "Cancelada"
+
+                    log_evento(
+                        f"Reserva {id_reserva} cancelada correctamente"
+                    )
+
+                    print("Reserva cancelada correctamente")
+
+            # Si no existe la reserva
+            if not reserva_encontrada:
+
+                raise ReservaError(
+                    f"No existe la reserva con ID {id_reserva}"
+                )
+
+        except ReservaError as e:
+
+            log_evento(str(e), "ERROR")
+
+            print("ERROR:", e)
+
+
+    # Método para buscar clientes por ID
+
+    def buscar_cliente(self, id_cliente):
+
+        try:
+
+            for cliente in self.clientes:
+
+                if cliente.id == id_cliente:
+
+                    return cliente
+
+            raise ClienteError(
+                f"No existe el cliente con ID {id_cliente}"
+            )
+
+        except ClienteError as e:
+
+            log_evento(str(e), "ERROR")
+
+            print("ERROR:", e)
+
+
+    # Método para mostrar todos los clientes
+
+    def mostrar_clientes(self):
+
+        print("\n========== CLIENTES ==========")
+
+        if len(self.clientes) == 0:
+
+            print("No existen clientes registrados")
+
+        else:
+
+            for cliente in self.clientes:
+
+                print(cliente.mostrar_info())
+
+
+    # Método para mostrar los servicios registrados
+
+    def mostrar_servicios(self):
+
+        print("\n========== SERVICIOS ==========")
+
+        if len(self.servicios) == 0:
+
+            print("No existen servicios registrados")
+
+        else:
+
+            for servicio in self.servicios:
+
+                print(servicio.descripcion())
+
+
+    # Método para visualizar todas las reservas
+
+    def mostrar_reservas(self):
+
+        print("\n========== RESERVAS ==========")
+
+        if len(self.reservas) == 0:
+
+            print("No existen reservas registradas")
+
+        else:
+
+            for reserva in self.reservas:
+
+                print(
+                    f"Reserva ID: {reserva.id} | "
+                    f"Cliente: {reserva.cliente._nombre} | "
+                    f"Servicio: {reserva.servicio.nombre} | "
+                    f"Estado: {reserva.estado}"
+                )
+
+
+    # Método encargado de mostrar estadísticas
+    # generales del sistema
+
+    def estadisticas(self):
+
+        confirmadas = 0
+        canceladas = 0
+        pendientes = 0
+
+        # Recorre las reservas para contar estados
+        for reserva in self.reservas:
+
+            if reserva.estado == "Confirmada":
+
+                confirmadas += 1
+
+            elif reserva.estado == "Cancelada":
+
+                canceladas += 1
+
+            else:
+
+                pendientes += 1
+
+        print("\n========== ESTADÍSTICAS ==========")
+
+        print(f"Clientes registrados: {len(self.clientes)}")
+        print(f"Servicios registrados: {len(self.servicios)}")
+        print(f"Reservas registradas: {len(self.reservas)}")
+
+        print(f"Reservas confirmadas: {confirmadas}")
+        print(f"Reservas canceladas: {canceladas}")
+        print(f"Reservas pendientes: {pendientes}")
