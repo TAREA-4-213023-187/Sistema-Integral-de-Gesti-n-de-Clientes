@@ -180,6 +180,28 @@ class Reserva:
             log_evento(f"Error inesperado en Reserva {self.id}: {e}", "CRITICAL")
             raise ReservaError("Error interno al procesar reserva.")
 
+    def cancelar(self):
+        try:
+            if self.estado == "Cancelada":
+                raise ReservaError(
+                    f"La reserva {self.id} ya fue cancelada"
+                )
+            
+            if self.estado == "FFinalizada":
+                raise ReservaError(
+                    f"La reserva {self.id} ya fue finalizada"
+                )
+
+            self.estado = "Cancelada"
+            log_evento(
+                f"Reserva {self.id} cancelada correctamente"
+            )
+            print("Reserva cancelada correctamente")
+
+        except ReservaError as e:
+            log_evento(str(e), "ERROR")
+            print("ERROR:", e)
+            
 # ==========================================================
 # ====== APORTE ESTUDIANTE: MANEJO CENTRAL DEL SISTEMA =====
 # ==========================================================
