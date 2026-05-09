@@ -1,0 +1,2 @@
+2026-05-08 21:27:26.723660 [INFO] Sistema de gestión iniciado
+2026-05-08 21:27:53.105942 [INFO] Cliente agregado correctamente: 1002415477

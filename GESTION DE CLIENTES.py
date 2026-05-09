@@ -526,3 +526,133 @@ class SistemaGestion:
         print(f"Reservas confirmadas: {confirmadas}")
         print(f"Reservas canceladas: {canceladas}")
         print(f"Reservas pendientes: {pendientes}")
+
+
+# ==========================================================
+# ====== INTERFAZ GRÁFICA DEL SISTEMA ======
+# ==========================================================
+# Autor: Ludy Marcela Monroy
+
+class SistemaGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("SOFWARE FJ - Sistema de Gestión de Clientes")
+        self.root.geometry("900x600")
+
+        # Instancia del sistema de gestión
+        self.sistema = SistemaGestion()
+
+        # ===== VARIABLES DE CONTROL =====
+        self.id_cliente_var = tk.StringVar()
+        self.nombre_cliente_var = tk.StringVar()
+        self.email_cliente_var = tk.StringVar()
+
+        # ===== TITULO PRINCIPAL =====
+        titulo = tk.Label(
+            root,
+            text="SOFTWARE FJ - SISTEMA DE GESTIÓN",
+            font=("Arial", 16, "bold"),
+            fg="#333"
+        )
+        titulo.pack(pady=10)
+
+# ===== FRAME DE REGISTRO DE CLIENTES =====
+
+        frame_clientes = tk.LabelFrame(
+            root,
+            text="Registro de Clientes",
+            padx=10,
+            pady=10
+        )
+
+        frame_clientes.pack(padx=10, pady=10, fill="x")
+
+        # ID del cliente
+        tk.Label(frame_clientes, text="ID:").grid(row=0, column=0)
+
+        tk.Entry(frame_clientes, textvariable=self.id_cliente_var).grid(row=0, column=1)
+
+        # Nombre del cliente
+        tk.Label(frame_clientes, text="Nombre:").grid(row=1, column=0)
+        tk.Entry(frame_clientes, textvariable=self.nombre_cliente_var).grid(row=1, column=1)
+
+        # Email del cliente
+        tk.Label(frame_clientes, text="Email:").grid(row=2, column=0)
+        tk.Entry(frame_clientes, textvariable=self.email_cliente_var).grid(row=2, column=1)
+
+        # Botón para registrar cliente
+        tk.Button(
+            frame_clientes,
+            text="Registrar Cliente",
+            command=self.registrar_cliente, 
+            bg="lightblue"
+        ).grid(row=3, column=0, columnspan=2, pady=10)
+
+        # ===========================================
+        # ====== TABLA DE CLIENTES REGISTRADOS ======
+        # ===========================================
+
+        self.tabla_clientes = ttk.Treeview(
+            root,
+            columns=("ID", "Nombre", "Email"),
+            show="headings",
+            height=8
+        )
+
+        self.tabla_clientes.heading("ID", text="ID")
+        self.tabla_clientes.heading("Nombre", text="Nombre")
+        self.tabla_clientes.heading("Email", text="Email")
+
+        self.tabla_clientes.pack(padx=10, pady=10, fill="both")
+
+        # ===========================================
+        # ====== REGISTRAR CLIENTE ======
+        # ===========================================
+
+    def registrar_cliente(self):
+        try:
+            cliente = Cliente(
+                int(self.id_cliente_var.get()),
+                self.nombre_cliente_var.get(),
+                self.email_cliente_var.get()
+            )
+
+            self.sistema.agregar_cliente(cliente)
+
+            # Agregar cliente a la tabla
+            self.tabla_clientes.insert(
+                "",
+                tk.END,
+                values=(
+                    cliente.id,
+                    cliente._nombre,
+                    cliente._email
+                )
+            )
+
+            messagebox.showinfo(
+                "Éxito",
+                "Cliente registrado correctamente"
+            )
+
+            # Limpiar campos
+            self.id_cliente_var.set("")
+            self.nombre_cliente_var.set("")
+            self.email_cliente_var.set("")
+        
+        except Exception as e:
+            log_evento(str(e), "ERROR")
+
+            messagebox.showerror(
+                "Error",
+                f"No se pudo registrar el cliente: {e}"
+            )
+
+# ==========================================================
+# ====== PUNTO DE ENTRADA DEL PROGRAMA ======
+# ==========================================================
+
+if __name__ == "__main__":
+    ventana = tk.Tk()
+    app = SistemaGUI(ventana)
+    ventana.mainloop()
