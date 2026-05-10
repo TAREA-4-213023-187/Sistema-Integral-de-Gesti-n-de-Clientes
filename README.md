@@ -18,6 +18,8 @@ La aplicación permite:
 - RRegistrar eventos y errores en archivo logs
 - Mostrar estadisticas del sistema
 
+---
+
 ## OBJETIVO
 
 Implementar un sistema modular y funcional aplicando:
@@ -28,6 +30,8 @@ Implementar un sistema modular y funcional aplicando:
 - Manejo de exepciones
 - Uso de listas y archivos
 
+---
+
 ## Sistemas utiilizados
 
 - Python
@@ -37,6 +41,7 @@ Implementar un sistema modular y funcional aplicando:
 - GitHub como repositorio
 
 ---
+
 ## Estructura del Sistema
 
 El sistema incluye: 
@@ -68,6 +73,8 @@ El sistema incluye:
 - Estadisticas basicas
 - Interfaz gráfica en Tkinter
 
+---
+
 ## Manejo de excepciones
 
 El sistema implementa:
@@ -77,5 +84,7 @@ El sistema implementa:
 - 'try / except / finally'
 - Excepciones personalizadas
 - Encadenamiento de excepciones
+
+---
 
 ## ▶️ Ejecución del Proyecto
