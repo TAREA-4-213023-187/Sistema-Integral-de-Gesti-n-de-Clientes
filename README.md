@@ -42,11 +42,11 @@ El sistema incluye:
 
 ## Clases Principales
 
-Entidad
-Cliente 
-Servicio
-Reserva
-SistemaGestion
+- Entidad
+- Cliente 
+- Servicio
+- Reserva
+- SistemaGestion
 
 ## Servicios Implementados
 
