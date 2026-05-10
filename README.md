@@ -1,7 +1,7 @@
 # Sistema-Integral-de-Gesti-n-de-Clientes
 SOFTWARE FJ - Sistema Integral de Gestión de Clientes, Servicios y  Reservas 
 
-# Descripción del proyecto
+## 📝 Descripción del Proyecto
 
 Este proyecto consiste en el desarrollo de un sistema integral orientado a objetos "SOFTWARE FJ", el cual permite gestionar clientes, 
 servicios y reservas sin utilizar bases de datos. 
@@ -18,7 +18,7 @@ La aplicación permite:
 - RRegistrar eventos y errores en archivo logs
 - Mostrar estadisticas del sistema
 
-# OBJETIVO
+## OBJETIVO
 
 Implementar un sistema modular y funcional aplicando:
 - Abstracción
@@ -28,7 +28,7 @@ Implementar un sistema modular y funcional aplicando:
 - Manejo de exepciones
 - Uso de listas y archivos
 
-# Sistemas utiilizados
+## Sistemas utiilizados
 
 - Python
 - Tkinter
@@ -36,11 +36,11 @@ Implementar un sistema modular y funcional aplicando:
 - Archivos '.txt' para logs
 - GitHub como repositorio
 
-# Estructura del Sistema
+## Estructura del Sistema
 
 El sistema incluye: 
 
-## Clases Principales
+### Clases Principales
 
 - Entidad
 - Cliente 
@@ -48,13 +48,13 @@ El sistema incluye:
 - Reserva
 - SistemaGestion
 
-## Servicios Implementados
+### Servicios Implementados
 
 - Reserva de salas
 - Alquiler de equipos
 - Asesorías especializadas
 
-## Funcionalidades Implementadas
+##Funcionalidades Implementadas
 
 - Registro de clientes
 - Validación de datos
@@ -75,4 +75,4 @@ El sistema implementa:
 - Excepciones personalizadas
 - Encadenamiento de excepciones
 
-# ▶️ Ejecución del Proyecto
+## ▶️ Ejecución del Proyecto
