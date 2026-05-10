@@ -36,6 +36,7 @@ Implementar un sistema modular y funcional aplicando:
 - Archivos '.txt' para logs
 - GitHub como repositorio
 
+---
 ## Estructura del Sistema
 
 El sistema incluye: 
@@ -54,7 +55,9 @@ El sistema incluye:
 - Alquiler de equipos
 - Asesorías especializadas
 
-##Funcionalidades Implementadas
+---
+
+## Funcionalidades Implementadas
 
 - Registro de clientes
 - Validación de datos
