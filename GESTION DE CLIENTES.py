@@ -110,7 +110,7 @@ class ReservaSala(Servicio):
     def calcular_costo(self, horas, limpieza=True):
         # Sobrecarga lógica: costo por horas + cargo de limpieza opcional
         adicional = 15.0 if limpieza else 0.0
-        return (self.precio_base * horas) + adicional
+        return (self.precio_base * dias) + adicional
 
     def descripcion(self):
         return f"Servicio: {self.nombre} (Reserva de Sala por hora)"
@@ -141,21 +141,15 @@ class Reserva:
 # ===== VALIDACIONES RESERVA =====
 # Control de Cliente, Servicio y Cantidad
 
-        if id_reserva <= 0:
+       if id_reserva <= 0:
             raise ReservaError("El ID de la reserva debe ser mayor a cero")
-        
-        # Validar Cliente
         if not isinstance(cliente, Cliente):
             raise ReservaError("El cliente proporcionado no es válido")
-        
-        # Validar Servicio
         if not isinstance(servicio, Servicio):
             raise ReservaError("El servicio proporcionado no es válido")
-        
-        # Validar cantidad
         if cantidad <= 0:
             raise ReservaError("La cantidad debe ser mayor a cero")
-        
+
         self.id = id_reserva
         self.cliente = cliente
         self.servicio = servicio
@@ -164,18 +158,14 @@ class Reserva:
 
     def confirmar(self):
         try:
-            if self.cantidad <= 0:
-                raise ReservaError(f"Cantidad inválida ({self.cantidad}) para la reserva {self.id}")
-            
             costo_final = self.servicio.calcular_costo(self.cantidad)
             self.estado = "Confirmada"
             log_evento(f"Reserva {self.id} CONFIRMADA. Cliente: {self.cliente.id}. Total: ${costo_final}")
             return costo_final
-            
         except ReservaError as e:
             self.estado = "Fallida"
             log_evento(str(e), "ERROR")
-            raise 
+            raise
         except Exception as e:
             log_evento(f"Error inesperado en Reserva {self.id}: {e}", "CRITICAL")
             raise ReservaError("Error interno al procesar reserva.")
@@ -183,21 +173,13 @@ class Reserva:
     def cancelar(self):
         try:
             if self.estado == "Cancelada":
-                raise ReservaError(
-                    f"La reserva {self.id} ya fue cancelada"
-                )
-            
-            if self.estado == "FFinalizada":
-                raise ReservaError(
-                    f"La reserva {self.id} ya fue finalizada"
-                )
+                raise ReservaError(f"La reserva {self.id} ya fue cancelada")
+            if self.estado == "Finalizada":
+                raise ReservaError(f"La reserva {self.id} ya fue finalizada")
 
             self.estado = "Cancelada"
-            log_evento(
-                f"Reserva {self.id} cancelada correctamente"
-            )
+            log_evento(f"Reserva {self.id} cancelada correctamente")
             print("Reserva cancelada correctamente")
-
         except ReservaError as e:
             log_evento(str(e), "ERROR")
             print("ERROR:", e)
