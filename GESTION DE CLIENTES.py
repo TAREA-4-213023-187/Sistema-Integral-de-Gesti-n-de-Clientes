@@ -173,9 +173,14 @@ class Reserva:
     def cancelar(self):
         try:
             if self.estado == "Cancelada":
-                raise ReservaError(f"La reserva {self.id} ya fue cancelada")
+                raise ReservaError(
+                    f"La reserva {self.id} ya fue cancelada"
+                )
+            
             if self.estado == "Finalizada":
-                raise ReservaError(f"La reserva {self.id} ya fue finalizada")
+                raise ReservaError(
+                    f"La reserva {self.id} ya fue finalizada"
+                )
 
             self.estado = "Cancelada"
             log_evento(f"Reserva {self.id} cancelada correctamente")
@@ -540,8 +545,14 @@ class SistemaGestion:
 class SistemaGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("SOFWARE FJ - Sistema de Gestión de Clientes")
-        self.root.geometry("900x600")
+        self.root.title("SOFTWARE FJ - Sistema de Gestión de Clientes")
+        self.root.geometry("1200x800")
+
+        # Estilo para pestañas
+
+        style = ttk.Style()
+
+        style.configure("TNotebook.Tab", font=("Arial", 12, "bold"), padding=[20, 10])
 
         # Instancia del sistema de gestión
         self.sistema = SistemaGestion()
@@ -550,6 +561,18 @@ class SistemaGUI:
         self.id_cliente_var = tk.StringVar()
         self.nombre_cliente_var = tk.StringVar()
         self.email_cliente_var = tk.StringVar()
+
+        # ===== VARIABLES SERVICIOS =====
+        self.nombre_servicio_var = tk.StringVar()
+        self.precio_servicio_var = tk.StringVar()
+        self.tipo_servicio_var = tk.StringVar()
+
+        # ===== VARIABLES RESERVAS =====
+        self.id_reserva_var = tk.StringVar()
+        self.cantidad_reserva_var = tk.StringVar()
+
+        self.cliente_reserva_var = tk.StringVar()
+        self.servicio_reserva_var = tk.StringVar()
 
         # ===== TITULO PRINCIPAL =====
         titulo = tk.Label(
@@ -560,10 +583,41 @@ class SistemaGUI:
         )
         titulo.pack(pady=10)
 
-# ===== FRAME DE REGISTRO DE CLIENTES =====
+        # ===========================================
+        # ==== NOTEBOOK PARA SEPARAR SECCIONES ======
+        # ===========================================
+
+        notebook = ttk.Notebook(root)
+        notebook.pack(padx=10, pady=10, fill="both", expand=True)
+
+        # Pestañas
+        tab_clientes = tk.Frame(notebook)
+        tab_servicios =  tk.Frame(notebook)
+        tab_reservas = tk.Frame(notebook)
+        tab_estadisticas = tk.Frame(notebook)
+
+        # Agregar Pestañas
+        notebook.add(tab_clientes, text="Clientes")
+        notebook.add(tab_servicios, text="Servicios")
+        notebook.add(tab_reservas, text="Reservas")
+        notebook.add(tab_estadisticas, text="Estadíticas")
+
+        # Botón para mostrar estadísticas
+        tk.Button(
+            tab_estadisticas,
+            text="Mostrar Estadísticas",
+            command=self.mostrar_estadisticas,
+            bg="lightgray",
+            font=("Arial", 12, "bold"),
+            width=20,
+            height=2
+        ).pack(pady=30)
+
+
+        # ===== FRAME DE REGISTRO DE CLIENTES =====
 
         frame_clientes = tk.LabelFrame(
-            root,
+            tab_clientes,
             text="Registro de Clientes",
             padx=10,
             pady=10
@@ -597,7 +651,7 @@ class SistemaGUI:
         # ===========================================
 
         self.tabla_clientes = ttk.Treeview(
-            root,
+            tab_clientes,
             columns=("ID", "Nombre", "Email"),
             show="headings",
             height=8
@@ -607,11 +661,163 @@ class SistemaGUI:
         self.tabla_clientes.heading("Nombre", text="Nombre")
         self.tabla_clientes.heading("Email", text="Email")
 
+        self.tabla_clientes.column("ID", anchor="center", width=100)
+        self.tabla_clientes.column("Nombre", anchor="center", width=250)
+        self.tabla_clientes.column("Email", anchor="center", width=300)
+
         self.tabla_clientes.pack(padx=10, pady=10, fill="both")
 
+        # ====== FRAME REGISTRO DE SERVICIOS ======
+
+        frame_servicios = tk.LabelFrame(
+            tab_servicios,
+            text="Registro de Servicios",
+            padx=10,
+            pady=10
+        )
+
+        frame_servicios.pack(padx=10, pady=10, fill="x")
+
+        # Nombre del servicio
+        tk.Label(frame_servicios, text="Nombre del Servicio:").grid(row=0, column=0)
+        tk.Entry(frame_servicios, textvariable=self.nombre_servicio_var).grid(row=0, column=1)
+
+        # Precio del servicio
+        tk.Label(frame_servicios, text="Precio Base:").grid(row=1, column=0)
+        tk.Entry(frame_servicios, textvariable=self.precio_servicio_var).grid(row=1, column=1)
+
+        # Tipo de servicio
+        tk.Label(frame_servicios, text="Tipo de Servicio:").grid(row=2, column=0)
+        combo_tipo = ttk.Combobox(
+            frame_servicios,
+            textvariable=self.tipo_servicio_var,
+            state="readonly"
+        )
+        combo_tipo['values'] = ("Reserva de Sala", "Alquiler de Equipos", "Asesoría Especializada")
+        combo_tipo.grid(row=2, column=1)
+
+        # Botón para registrar servicio
+        tk.Button(
+            frame_servicios,
+            text="Registrar Servicio",
+            command=self.registrar_servicio,
+            bg="lightgreen"
+        ).grid(row=3, column=0, columnspan=2, pady=10)
+
         # ===========================================
-        # ====== REGISTRAR CLIENTE ======
+        # ====== TABLA DE SERVICIOS REGISTRADOS ======
         # ===========================================
+
+        self.tabla_servicios = ttk.Treeview(
+            tab_servicios,
+            columns=("Nombre", "Precio", "Tipo"),
+            show="headings",
+            height=6
+        )    
+
+        self.tabla_servicios.heading("Nombre", text="Nombre del Servicio")
+        self.tabla_servicios.heading("Precio", text="Precio")
+        self.tabla_servicios.heading("Tipo", text="Tipo de Servicio")
+
+        self.tabla_servicios.column("Nombre", anchor="center", width=250)
+        self.tabla_servicios.column("Precio", anchor="center", width=150)
+        self.tabla_servicios.column("Tipo", anchor="center", width=250)
+
+        self.tabla_servicios.pack(padx=10, pady=10, fill="both")
+        # ===========================================
+        # ====== FRAME RESERVAS ======
+        # ===========================================
+
+        frame_reservas = tk.LabelFrame(
+            tab_reservas,
+            text="Gestión de Reservas",
+            padx=10,
+            pady=10
+        )
+
+        frame_reservas.pack(padx=10, pady=10, fill="x")
+
+        # ID de la reserva
+        tk.Label(frame_reservas, text="ID de Reserva:").grid(row=0, column=0)
+        tk.Entry(frame_reservas, textvariable=self.id_reserva_var).grid(row=0, column=1)
+
+        # Cliente para la reserva
+        tk.Label(frame_reservas, text="Cliente:").grid(row=1, column=0)
+        self.combo_clientes = ttk.Combobox(
+            frame_reservas,
+            textvariable=self.cliente_reserva_var,
+            state="readonly"
+        )
+
+        self.combo_clientes.grid(row=1, column=1)
+
+        # Servicio para la reserva
+        tk.Label(frame_reservas, text="Servicio:").grid(row=2, column=0)
+
+        self.combo_servicios = ttk.Combobox(
+            frame_reservas,
+            textvariable=self.servicio_reserva_var,
+            state="readonly"
+        )
+
+        self.combo_servicios.grid(row=2, column=1)
+
+        # Cantidad para la reserva
+        tk.Label(frame_reservas, text="Cantidad (horas/días/sesiones):").grid(row=3, column=0)
+        tk.Entry(frame_reservas, textvariable=self.cantidad_reserva_var).grid(row=3, column=1)
+
+        # Botón para crear reserva
+        tk.Button(
+            frame_reservas,
+            text="Crear Reserva",
+            command=self.crear_reserva_gui,
+            bg="orange"
+        ).grid(row=4, column=0, columnspan=2, pady=10)
+
+        # ===========================================
+        # ====== TABLA DE RESERVAS ======
+        # ===========================================
+
+        self.tabla_reservas = ttk.Treeview(
+            tab_reservas,
+            columns=("ID", "Cliente", "Servicio", "Cantidad", "Estado"),
+            show="headings",
+            height=6
+        )
+
+        self.tabla_reservas.heading("ID", text="ID de Reserva")
+        self.tabla_reservas.heading("Cliente", text="Cliente")
+        self.tabla_reservas.heading("Servicio", text="Servicio")
+        self.tabla_reservas.heading("Cantidad", text="Cantidad")
+        self.tabla_reservas.heading("Estado", text="Estado")
+
+        # Centrar columnas 
+        self.tabla_reservas.column("ID", anchor="center", width=100)
+        self.tabla_reservas.column("Cliente", anchor="center", width=200)
+        self.tabla_reservas.column("Servicio", anchor="center", width=200)
+        self.tabla_reservas.column("Cantidad", anchor="center", width=100)
+        self.tabla_reservas.column("Estado", anchor="center", width=150)
+
+        self.tabla_reservas.pack(padx=10, pady=10, fill="both")
+
+       # ===========================================
+       # ====== BOTONES EXTRA DEL SISTEMA ======
+       # ===========================================
+        frame_botones = tk.Frame(tab_reservas)
+        frame_botones.pack(pady=10)
+   
+    # Boton para canclar reserva
+        tk.Button(
+            frame_botones,
+            text="Cancelar Reserva",
+            command=self.cancelar_reserva_gui,
+            bg="red",
+            fg="white"
+        ).grid(row=0, column=1, padx=10)
+
+    # ===========================================
+    # ====== REGISTRAR CLIENTE ======
+    # ===========================================
 
     def registrar_cliente(self):
         try:
@@ -643,7 +849,11 @@ class SistemaGUI:
             self.id_cliente_var.set("")
             self.nombre_cliente_var.set("")
             self.email_cliente_var.set("")
-        
+
+        # Actualizar combo de clientes para reservas
+            clientes = [cliente._nombre for cliente in self.sistema.clientes]
+            self.combo_clientes['values'] = clientes
+
         except Exception as e:
             log_evento(str(e), "ERROR")
 
@@ -652,6 +862,197 @@ class SistemaGUI:
                 f"No se pudo registrar el cliente: {e}"
             )
 
+    # ===========================================
+    # ====== REGISTRAR SERVICIO ======
+    # ===========================================
+    def registrar_servicio(self):
+        try:
+            nombre = self.nombre_servicio_var.get()
+            precio = float(self.precio_servicio_var.get())
+            tipo = self.tipo_servicio_var.get()
+
+            # Crear Servicio según el tipo seleccionado
+            if tipo == "Reserva de Sala":
+                servicio = ReservaSala(nombre, precio)
+            elif tipo == "Alquiler de Equipos":
+                servicio = AlquilerEquipos(nombre, precio)
+            elif tipo == "Asesoría Especializada":
+                servicio = AsesoriaEspecializada(nombre, precio)
+            else:
+                raise SistemaError("Debe seleccionar un tipo de servicio válido")
+
+            # Agregar servicio al sistema
+            self.sistema.agregar_servicio(servicio)
+
+            # Agregar servicio a la tabla
+            self.tabla_servicios.insert(
+                "",
+                tk.END,
+                values=(
+                    servicio.nombre,
+                    servicio.precio_base,
+                    tipo
+                )
+            )
+
+            messagebox.showinfo(
+                "Éxito",
+                "Servicio registrado correctamente"
+            )
+
+            # Limpiar campos
+            self.nombre_servicio_var.set("")
+            self.precio_servicio_var.set("")
+            self.tipo_servicio_var.set("")
+
+        # Actualizar lista de servicios para reservas
+            servicios = [servicio.nombre for servicio in self.sistema.servicios]
+            self.combo_servicios['values'] = servicios
+
+        except Exception as e:
+            log_evento(str(e), "ERROR")
+
+            messagebox.showerror(
+                "Error",
+                f"No se pudo registrar el servicio: {e}"
+            )
+    # ===========================================
+    # ====== CREAR RESERVA DESDE GUI ======
+    # ===========================================
+
+    def crear_reserva_gui(self):
+        try:
+            id_reserva = int(self.id_reserva_var.get())
+            cantidad = int(self.cantidad_reserva_var.get())
+
+            nombre_cliente = self.cliente_reserva_var.get()
+            nombre_servicio = self.servicio_reserva_var.get()
+
+            # Buscar cliente y servicio por nombre
+            cliente = None
+            for c in self.sistema.clientes:
+                if c._nombre == nombre_cliente:
+                    cliente = c
+                    break
+
+            # Buscar servicio por nombre
+            servicio = None
+            for s in self.sistema.servicios:
+                if s.nombre == nombre_servicio:
+                    servicio = s
+                    break
+
+            if cliente is None:
+                raise ReservaError("Cliente no encontrado")
+            if servicio is None:
+                raise ReservaError("Servicio no encontrado")
+
+            # Crear reserva y agregar al sistema
+            reserva = Reserva(id_reserva, cliente, servicio, cantidad)
+            self.sistema.crear_reserva(reserva)
+
+            # Calcular total 
+
+            total = servicio.calcular_costo(cantidad)
+
+            # Agregar reserva a la tabla
+            self.tabla_reservas.insert(
+                "",
+                tk.END,
+                values=(
+                    reserva.id,
+                    cliente._nombre,
+                    servicio.nombre,
+                    reserva.cantidad,
+                    reserva.estado
+                )
+            )
+
+            messagebox.showinfo(
+                "Éxito",
+                f"Reserva creada correctamente \n\nTotal a pagar: ${total}"
+            )
+
+            # Limpiar campos
+            self.id_reserva_var.set("")
+            self.cantidad_reserva_var.set("")
+            self.cliente_reserva_var.set("")
+            self.servicio_reserva_var.set("")
+
+        except Exception as e:
+            log_evento(str(e), "ERROR")
+            messagebox.showerror(
+                "Error",
+                f"No se pudo crear la reserva: {e}"
+            )
+    # ===========================================
+    # ====== MOSTRAR ESTADÍSTICAS ======
+    # ===========================================  
+    
+    def mostrar_estadisticas(self):
+        total_clientes = len(self.sistema.clientes)
+        total_servicios = len(self.sistema.servicios)
+        total_reservas = len(self.sistema.reservas)
+
+        confirmadas = 0
+        canceladas = 0
+
+        for reserva in self.sistema.reservas:
+            if reserva.estado == "Confirmada":
+                confirmadas += 1
+            elif reserva.estado == "Cancelada":
+                canceladas += 1
+        
+        mensaje = (
+            f"Total de Clientes: {total_clientes}\n"
+            f"Total de Servicios: {total_servicios}\n"
+            f"Total de Reservas: {total_reservas}\n"
+            f"Reservas Confirmadas: {confirmadas}\n"
+            f"Reservas Canceladas: {canceladas}\n"
+        )
+
+        messagebox.showinfo("Estadísticas", mensaje)
+
+        # ===========================================
+        # ====== CANCELAR RESERVA DESDE GUI ======
+        # ===========================================
+
+    def cancelar_reserva_gui(self):
+        try:
+            seleccion = self.tabla_reservas.selection()
+            if not seleccion:
+                raise ReservaError("Debe seleccionar una reserva para cancelar")
+            item = self.tabla_reservas.item(seleccion)
+            datos = item['values']
+            id_reserva = datos[0]
+
+            # Cancelar reserva en el sistema
+            for reserva in self.sistema.reservas:
+                if reserva.id == id_reserva:
+                    reserva.cancelar()
+
+                    # Actualizar estado en la tabla
+                    self.tabla_reservas.item(
+                        seleccion,
+                        values=(
+                            reserva.id,
+                            reserva.cliente._nombre,
+                            reserva.servicio.nombre,
+                            reserva.cantidad,
+                            reserva.estado
+                        )
+                    )
+                    messagebox.showinfo(
+                        "Éxito",
+                        f"Reserva {id_reserva} cancelada correctamente"
+                    )
+                    return
+        except Exception as e:
+            log_evento(str(e), "ERROR")
+            messagebox.showerror(
+                "Error",
+                f"No se pudo cancelar la reserva: {e}"
+            )
 # ==========================================================
 # ====== PUNTO DE ENTRADA DEL PROGRAMA ======
 # ==========================================================
@@ -659,4 +1060,75 @@ class SistemaGUI:
 if __name__ == "__main__":
     ventana = tk.Tk()
     app = SistemaGUI(ventana)
+   
+    # ===== PRUEBAS DEL SISTEMA =====
+
+    sistema = SistemaGestion()
+
+    # ===== CLIENTES =====
+
+    cliente1 = Cliente(1, "Laura Jimenez", "LauJz@gmail.com")
+    cliente2 = Cliente(2, "Camilo Alvarez", "camiloalvarez@gmail.com")
+    cliente3 = Cliente(3, "Sofia Ramirez", "sofiaramirez@gmail.com")
+
+    sistema.agregar_cliente(cliente1)
+    sistema.agregar_cliente(cliente2)
+    sistema.agregar_cliente(cliente3)
+    
+    # Cliente Invalido
+    try:
+        cliente_error = Cliente(3, "", "correo_invalido")
+        sistema.agregar_cliente(cliente_error)
+    except Exception as e:
+        print("Error detectado:", e)
+
+    # ===== SERVICIOS =====
+
+    servicio1 = ReservaSala("Sala VIP", 50)
+    servicio2 = AlquilerEquipos("Proyector HD", 30)
+    servicio3 = AsesoriaEspecializada("Asesoría Técnica", 80)
+
+    sistema.agregar_servicio(servicio1)
+    sistema.agregar_servicio(servicio2)
+    sistema.agregar_servicio(servicio3)
+
+    # ===== RESERVAS =====
+
+    reserva1 = Reserva(1, cliente1, servicio1, 2)
+    sistema.crear_reserva(reserva1)
+
+    reserva2 = Reserva(2, cliente2, servicio2, 6)
+    sistema.crear_reserva(reserva2)
+    
+    reserva3 = Reserva(3, cliente3, servicio3, 4)
+    sistema.crear_reserva(reserva3)
+
+    reserva4 = Reserva(4, cliente1, servicio3, 3)
+    sistema.crear_reserva(reserva4)
+
+    # Reserva Invalida
+    try:
+        reserva_error = Reserva(5, cliente1, servicio1, -5)
+        sistema.crear_reserva(reserva_error)
+
+    except Exception as e:
+        print("El sistema generó un error:", e)
+
+    print("El programa continúa ejecutándose normalmente después del error")
+
+    # Cancelar reserva
+    reserva1.cancelar()
+
+    # Cancelar reserva ya cancelada (genera error)
+    reserva1.cancelar()
+
+    # Mostrar información
+    sistema.mostrar_clientes()
+    sistema.mostrar_servicios()
+    sistema.mostrar_reservas()
+
+    # Mostrar estadísticas
+    sistema.estadisticas()
+
+    # Iniciar la interfaz gráfica
     ventana.mainloop()

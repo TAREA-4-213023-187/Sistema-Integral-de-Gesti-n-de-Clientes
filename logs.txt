@@ -2,3 +2,188 @@
 2026-05-08 21:27:53.105942 [INFO] Cliente agregado correctamente: 1002415477
 2026-05-08 21:43:10.758682 [INFO] Sistema de gestión iniciado
 2026-05-08 21:43:32.169418 [INFO] Cliente agregado correctamente: 10235
+2026-05-11 17:23:58.580673 [INFO] Sistema de gestión iniciado
+2026-05-11 17:23:58.615477 [INFO] Sistema de gestión iniciado
+2026-05-11 17:23:58.617287 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:23:58.690425 [INFO] Cliente agregado correctamente: 2
+2026-05-11 17:23:58.754146 [INFO] Cliente agregado correctamente: 3
+2026-05-11 17:23:58.894223 [INFO] Servicio agregado: Sala VIP
+2026-05-11 17:23:58.896528 [INFO] Servicio agregado: Proyector HD
+2026-05-11 17:23:58.898329 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 17:23:58.900706 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 17:23:58.901582 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:23:58.914791 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 17:23:58.915475 [INFO] Reserva 2 creada correctamente
+2026-05-11 17:23:58.928488 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 17:23:58.929640 [INFO] Reserva 3 creada correctamente
+2026-05-11 17:23:58.933170 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 17:23:58.934089 [INFO] Reserva 4 creada correctamente
+2026-05-11 17:23:58.936132 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 17:23:58.941488 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:25:19.388078 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:25:37.178058 [INFO] Cliente agregado correctamente: 2
+2026-05-11 17:25:49.227871 [ERROR] Ya existe un cliente con ID 2
+2026-05-11 17:26:12.251687 [INFO] Servicio agregado: Sala 3
+2026-05-11 17:26:24.869655 [INFO] Servicio agregado: Sala VIP
+2026-05-11 17:26:48.328617 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $10015.0
+2026-05-11 17:26:48.329341 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:26:59.971342 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $2015.0
+2026-05-11 17:26:59.972071 [INFO] Reserva 2 creada correctamente
+2026-05-11 17:27:05.994845 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 17:27:10.963996 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:27:18.664039 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:38:11.345354 [INFO] Sistema de gestión iniciado
+2026-05-11 17:38:11.362474 [INFO] Sistema de gestión iniciado
+2026-05-11 17:38:11.364016 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:38:11.364935 [INFO] Cliente agregado correctamente: 2
+2026-05-11 17:38:11.365944 [INFO] Cliente agregado correctamente: 3
+2026-05-11 17:38:11.367058 [INFO] Servicio agregado: Sala VIP
+2026-05-11 17:38:11.367938 [INFO] Servicio agregado: Proyector HD
+2026-05-11 17:38:11.368863 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 17:38:11.370871 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 17:38:11.371657 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:38:11.372810 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 17:38:11.373515 [INFO] Reserva 2 creada correctamente
+2026-05-11 17:38:11.374648 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 17:38:11.375356 [INFO] Reserva 3 creada correctamente
+2026-05-11 17:38:11.376309 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 17:38:11.379561 [INFO] Reserva 4 creada correctamente
+2026-05-11 17:38:11.382733 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 17:38:11.383564 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:38:23.350770 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:38:41.988031 [INFO] Servicio agregado: Equipo Computo
+2026-05-11 17:38:56.627882 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 17:38:56.628618 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:49:55.882296 [INFO] Sistema de gestión iniciado
+2026-05-11 17:49:55.904798 [INFO] Sistema de gestión iniciado
+2026-05-11 17:49:55.906450 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:49:55.907424 [INFO] Cliente agregado correctamente: 2
+2026-05-11 17:49:55.908463 [INFO] Cliente agregado correctamente: 3
+2026-05-11 17:49:55.909684 [INFO] Servicio agregado: Sala VIP
+2026-05-11 17:49:55.910493 [INFO] Servicio agregado: Proyector HD
+2026-05-11 17:49:55.911413 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 17:49:55.912344 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 17:49:55.914218 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:49:55.918640 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 17:49:55.919441 [INFO] Reserva 2 creada correctamente
+2026-05-11 17:49:55.920634 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 17:49:55.921277 [INFO] Reserva 3 creada correctamente
+2026-05-11 17:49:55.922283 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 17:49:55.923159 [INFO] Reserva 4 creada correctamente
+2026-05-11 17:49:55.924601 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 17:49:55.925466 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:50:08.050917 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:50:28.513837 [INFO] Servicio agregado: Proyector
+2026-05-11 17:50:48.680628 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 17:50:48.681465 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:51:41.459007 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 17:51:41.459926 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:51:49.133305 [INFO] Sistema de gestión iniciado
+2026-05-11 17:51:49.151492 [INFO] Sistema de gestión iniciado
+2026-05-11 17:51:49.153480 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:51:49.154443 [INFO] Cliente agregado correctamente: 2
+2026-05-11 17:51:49.155377 [INFO] Cliente agregado correctamente: 3
+2026-05-11 17:51:49.156775 [INFO] Servicio agregado: Sala VIP
+2026-05-11 17:51:49.157634 [INFO] Servicio agregado: Proyector HD
+2026-05-11 17:51:49.158406 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 17:51:49.159227 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 17:51:49.160176 [INFO] Reserva 1 creada correctamente
+2026-05-11 17:51:49.161820 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 17:51:49.162503 [INFO] Reserva 2 creada correctamente
+2026-05-11 17:51:49.164433 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 17:51:49.166214 [INFO] Reserva 3 creada correctamente
+2026-05-11 17:51:49.167525 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 17:51:49.168781 [INFO] Reserva 4 creada correctamente
+2026-05-11 17:51:49.171193 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 17:51:49.172336 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 17:52:00.496820 [INFO] Cliente agregado correctamente: 1
+2026-05-11 17:52:12.549900 [INFO] Servicio agregado: Proyector 
+2026-05-11 17:52:22.812656 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 17:52:22.813333 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:00:47.045393 [INFO] Sistema de gestión iniciado
+2026-05-11 18:01:51.073204 [INFO] Sistema de gestión iniciado
+2026-05-11 18:01:51.095367 [INFO] Sistema de gestión iniciado
+2026-05-11 18:01:51.097876 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:01:51.099906 [INFO] Cliente agregado correctamente: 2
+2026-05-11 18:01:51.100990 [INFO] Cliente agregado correctamente: 3
+2026-05-11 18:01:51.102178 [INFO] Servicio agregado: Sala VIP
+2026-05-11 18:01:51.103079 [INFO] Servicio agregado: Proyector HD
+2026-05-11 18:01:51.103981 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 18:01:51.105459 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 18:01:51.106707 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:01:51.108022 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 18:01:51.108754 [INFO] Reserva 2 creada correctamente
+2026-05-11 18:01:51.109827 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 18:01:51.110742 [INFO] Reserva 3 creada correctamente
+2026-05-11 18:01:51.112023 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 18:01:51.112998 [INFO] Reserva 4 creada correctamente
+2026-05-11 18:01:51.117190 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 18:01:51.118926 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 18:01:57.101301 [INFO] Sistema de gestión iniciado
+2026-05-11 18:01:57.126602 [INFO] Sistema de gestión iniciado
+2026-05-11 18:01:57.128301 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:01:57.129415 [INFO] Cliente agregado correctamente: 2
+2026-05-11 18:01:57.130599 [INFO] Cliente agregado correctamente: 3
+2026-05-11 18:01:57.131793 [INFO] Servicio agregado: Sala VIP
+2026-05-11 18:01:57.132630 [INFO] Servicio agregado: Proyector HD
+2026-05-11 18:01:57.133464 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 18:01:57.134538 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 18:01:57.135659 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:01:57.139195 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 18:01:57.139882 [INFO] Reserva 2 creada correctamente
+2026-05-11 18:01:57.143277 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 18:01:57.145069 [INFO] Reserva 3 creada correctamente
+2026-05-11 18:01:57.147059 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 18:01:57.147754 [INFO] Reserva 4 creada correctamente
+2026-05-11 18:01:57.150285 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 18:01:57.151412 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 18:02:07.220796 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:02:19.783645 [INFO] Cliente agregado correctamente: 2
+2026-05-11 18:02:31.935290 [INFO] Servicio agregado: Proyector
+2026-05-11 18:02:42.841217 [INFO] Servicio agregado: SALA VIP
+2026-05-11 18:02:53.722084 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 18:02:53.722841 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:03:18.754636 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $8015.0
+2026-05-11 18:03:18.755318 [INFO] Reserva 2 creada correctamente
+2026-05-11 18:03:48.821117 [INFO] Reserva 2 cancelada correctamente
+2026-05-11 18:09:01.595899 [INFO] Sistema de gestión iniciado
+2026-05-11 18:09:01.620325 [INFO] Sistema de gestión iniciado
+2026-05-11 18:09:01.621942 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:09:01.627507 [INFO] Cliente agregado correctamente: 2
+2026-05-11 18:09:01.630465 [INFO] Cliente agregado correctamente: 3
+2026-05-11 18:09:01.633868 [INFO] Servicio agregado: Sala VIP
+2026-05-11 18:09:01.638325 [INFO] Servicio agregado: Proyector HD
+2026-05-11 18:09:01.639863 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 18:09:01.641229 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 18:09:01.642100 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:09:01.648336 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 18:09:01.649098 [INFO] Reserva 2 creada correctamente
+2026-05-11 18:09:01.649994 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 18:09:01.650723 [INFO] Reserva 3 creada correctamente
+2026-05-11 18:09:01.651618 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 18:09:01.652431 [INFO] Reserva 4 creada correctamente
+2026-05-11 18:09:01.653788 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 18:09:01.654652 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 18:11:47.956051 [INFO] Sistema de gestión iniciado
+2026-05-11 18:11:47.979536 [INFO] Sistema de gestión iniciado
+2026-05-11 18:11:47.981884 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:11:47.982929 [INFO] Cliente agregado correctamente: 2
+2026-05-11 18:11:47.983880 [INFO] Cliente agregado correctamente: 3
+2026-05-11 18:11:47.985036 [INFO] Servicio agregado: Sala VIP
+2026-05-11 18:11:47.985826 [INFO] Servicio agregado: Proyector HD
+2026-05-11 18:11:47.986751 [INFO] Servicio agregado: Asesoría Técnica
+2026-05-11 18:11:47.987541 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $115.0
+2026-05-11 18:11:47.988379 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:11:47.989313 [INFO] Reserva 2 CONFIRMADA. Cliente: 2. Total: $162.0
+2026-05-11 18:11:47.989967 [INFO] Reserva 2 creada correctamente
+2026-05-11 18:11:47.991495 [INFO] Reserva 3 CONFIRMADA. Cliente: 3. Total: $320
+2026-05-11 18:11:47.992245 [INFO] Reserva 3 creada correctamente
+2026-05-11 18:11:47.993267 [INFO] Reserva 4 CONFIRMADA. Cliente: 1. Total: $240
+2026-05-11 18:11:47.993999 [INFO] Reserva 4 creada correctamente
+2026-05-11 18:11:47.995708 [INFO] Reserva 1 cancelada correctamente
+2026-05-11 18:11:47.997012 [ERROR] La reserva 1 ya fue cancelada
+2026-05-11 18:12:07.546454 [INFO] Cliente agregado correctamente: 1
+2026-05-11 18:12:21.525718 [INFO] Servicio agregado: proyector
+2026-05-11 18:12:33.635662 [INFO] Reserva 1 CONFIRMADA. Cliente: 1. Total: $21600.0
+2026-05-11 18:12:33.636425 [INFO] Reserva 1 creada correctamente
+2026-05-11 18:12:37.388036 [INFO] Reserva 1 cancelada correctamente
