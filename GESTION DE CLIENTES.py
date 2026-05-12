@@ -108,9 +108,10 @@ class Servicio(ABC):
 
 class ReservaSala(Servicio):
     def calcular_costo(self, horas, limpieza=True):
+        
         # Sobrecarga lógica: costo por horas + cargo de limpieza opcional
         adicional = 15.0 if limpieza else 0.0
-        return (self.precio_base * dias) + adicional
+        return (self.precio_base * horas + adicional)
 
     def descripcion(self):
         return f"Servicio: {self.nombre} (Reserva de Sala por hora)"
@@ -139,9 +140,9 @@ class Reserva:
     def __init__(self, id_reserva, cliente, servicio, cantidad):
 
 # ===== VALIDACIONES RESERVA =====
-# Control de Cliente, Servicio y Cantidad
+# Control de Cliente, Servicio y CantidadSS
 
-       if id_reserva <= 0:
+        if id_reserva <= 0:
             raise ReservaError("El ID de la reserva debe ser mayor a cero")
         if not isinstance(cliente, Cliente):
             raise ReservaError("El cliente proporcionado no es válido")
@@ -264,7 +265,7 @@ class SistemaGestion:
 
             log_evento(str(e), "ERROR")
 
-            print("ERROR:", e)
+            raise
 
         else:
 
@@ -299,7 +300,7 @@ class SistemaGestion:
 
             log_evento(str(e), "ERROR")
 
-            print("ERROR:", e)
+            raise
 
         else:
 
@@ -348,7 +349,7 @@ class SistemaGestion:
 
             log_evento(str(e), "ERROR")
 
-            print("ERROR:", e)
+            raise
 
         except Exception as e:
 
@@ -600,7 +601,7 @@ class SistemaGUI:
         notebook.add(tab_clientes, text="Clientes")
         notebook.add(tab_servicios, text="Servicios")
         notebook.add(tab_reservas, text="Reservas")
-        notebook.add(tab_estadisticas, text="Estadíticas")
+        notebook.add(tab_estadisticas, text="Estadísticas")
 
         # Botón para mostrar estadísticas
         tk.Button(
@@ -806,7 +807,7 @@ class SistemaGUI:
         frame_botones = tk.Frame(tab_reservas)
         frame_botones.pack(pady=10)
    
-    # Boton para canclar reserva
+    # Boton para cancelar reserva
         tk.Button(
             frame_botones,
             text="Cancelar Reserva",
@@ -851,7 +852,7 @@ class SistemaGUI:
             self.email_cliente_var.set("")
 
         # Actualizar combo de clientes para reservas
-            clientes = [cliente._nombre for cliente in self.sistema.clientes]
+            clientes = [c._nombre for c in self.sistema.clientes]
             self.combo_clientes['values'] = clientes
 
         except Exception as e:
@@ -906,7 +907,7 @@ class SistemaGUI:
             self.tipo_servicio_var.set("")
 
         # Actualizar lista de servicios para reservas
-            servicios = [servicio.nombre for servicio in self.sistema.servicios]
+            servicios = [s.nombre for s in self.sistema.servicios]
             self.combo_servicios['values'] = servicios
 
         except Exception as e:
@@ -1022,7 +1023,7 @@ class SistemaGUI:
             seleccion = self.tabla_reservas.selection()
             if not seleccion:
                 raise ReservaError("Debe seleccionar una reserva para cancelar")
-            item = self.tabla_reservas.item(seleccion)
+            item = self.tabla_reservas.item(seleccion[0])
             datos = item['values']
             id_reserva = datos[0]
 
@@ -1063,7 +1064,7 @@ if __name__ == "__main__":
    
     # ===== PRUEBAS DEL SISTEMA =====
 
-    sistema = SistemaGestion()
+    sistema = app.sistema
 
     # ===== CLIENTES =====
 
@@ -1091,6 +1092,10 @@ if __name__ == "__main__":
     sistema.agregar_servicio(servicio1)
     sistema.agregar_servicio(servicio2)
     sistema.agregar_servicio(servicio3)
+
+    # Actualizar listas desplegables de clientes y servicios en la interfaz
+    app.combo_clientes['values'] = [c._nombre for c in sistema.clientes]
+    app.combo_servicios['values'] = [s.nombre for s in sistema.servicios]
 
     # ===== RESERVAS =====
 
